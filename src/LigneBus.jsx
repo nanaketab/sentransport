@@ -1,8 +1,9 @@
+
 import './LigneBus.css';
 
-function LigneBus({ numero, depart, arrivee, arrets, couleur }) {
+function LigneBus({ numero, depart, arrivee, arrets, couleur, onClick }) {
   return (
-    <div className="ligne-bus">
+    <div className="ligne-bus" onClick={onClick} style={{ cursor: 'pointer' }}>
       <div className="ligne-numero" style={{ backgroundColor: couleur }}>
         {numero}
       </div>

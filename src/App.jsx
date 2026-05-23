@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import './App.css';
 import Header from './Header';
@@ -9,24 +10,27 @@ function App() {
   const [lignes, setLignes] = useState([]);
   const [chargement, setChargement] = useState(true);
   const [erreur, setErreur] = useState(null);
+  const [ligneSelectionnee, setLigneSelectionnee] = useState(null);
 
-  useEffect(() => {
+  function chargerLignes() {
+    setChargement(true);
+    setErreur(null);
     fetch("http://localhost:5000/lignes")
       .then(response => {
-        if (!response.ok) {
-          throw new Error("Erreur serveur : " + response.status);
-        }
+        if (!response.ok) throw new Error("Erreur : " + response.status);
         return response.json();
       })
-      .then(data => {
-        setLignes(data);
-        setChargement(false);
-      })
-      .catch(error => {
-        setErreur(error.message);
-        setChargement(false);
-      });
-  }, []);
+      .then(data => { setLignes(data); setChargement(false); })
+      .catch(error => { setErreur(error.message); setChargement(false); });
+  }
+
+  function handleClickLigne(ligne) {
+    fetch("http://localhost:5000/lignes/" + ligne.id)
+      .then(response => response.json())
+      .then(data => setLigneSelectionnee(data));
+  }
+
+  useEffect(() => { chargerLignes(); }, []);
 
   if (chargement) {
     return (
@@ -47,7 +51,6 @@ function App() {
           <div className="message-erreur">
             <p>Impossible de charger les lignes.</p>
             <p className="erreur-detail">{erreur}</p>
-            <p>Vérifiez que le serveur Flask est lancé.</p>
           </div>
         </main>
       </div>
@@ -58,8 +61,22 @@ function App() {
     <div className="App">
       <Header />
       <main className="contenu">
+        <button onClick={chargerLignes} className="btn-recharger">
+          🔄 Recharger
+        </button>
         <StatReseau lignes={lignes} />
-        <ListeLignes lignes={lignes} />
+        <ListeLignes lignes={lignes} onClickLigne={handleClickLigne} />
+        {ligneSelectionnee && (
+          <div className="detail-ligne">
+            <h3>Ligne {ligneSelectionnee.numero} — {ligneSelectionnee.depart} → {ligneSelectionnee.arrivee}</h3>
+            <p>{ligneSelectionnee.arrets} arrêts</p>
+            <ul>
+              {ligneSelectionnee.listeArrets.map((arret, i) => (
+                <li key={i}>{arret}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </main>
       <Footer />
     </div>

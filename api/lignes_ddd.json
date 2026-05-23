@@ -35,4 +35,21 @@
     "arrets": 11,
     "listeArrets": ["Yoff Village","Aeroport LSS","Parcelles U17","Grand Yoff","HLM","Sandaga"]
   }
+  ,
+{
+  "id": 7,
+  "numero": "26",
+  "depart": "Thiaroye",
+  "arrivee": "Centenaire",
+  "arrets": 9,
+  "listeArrets": ["Thiaroye", "Pikine", "Camberene", "Patte d'Oie", "HLM", "Liberté 6", "Fann", "Stade", "Centenaire"]
+},
+{
+  "id": 8,
+  "numero": "36",
+  "depart": "Rufisque",
+  "arrivee": "Plateau",
+  "arrets": 13,
+  "listeArrets": ["Rufisque", "Sangalkam", "Keur Massar", "Grand Yoff", "Parcelles", "Liberté 6", "Colobane", "Plateau"]
+}
 ] 

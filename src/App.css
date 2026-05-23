@@ -41,5 +41,22 @@
   color: #e74c3c;
   font-family: monospace;
   font-size: 0.9rem;
-
+.btn-recharger {
+  display: block;
+  margin: 16px auto;
+  padding: 10px 24px;
+  background-color: #1E7A3E;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.detail-ligne {
+  background: #f0fff4;
+  border: 2px solid #1E7A3E;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
 }
