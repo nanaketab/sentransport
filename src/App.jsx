@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import './App.css';
 import Header from './Header';
 import ListeLignes from './ListeLignes';
@@ -5,18 +6,53 @@ import Footer from './Footer';
 import StatReseau from './StatReseau';
 
 function App() {
-  const lignes = [
-    { id:1,  numero:"1",  depart:"Parcelles Assainies", arrivee:"Plateau",      arrets:14, couleur:"#e74c3c" },
-    { id:2,  numero:"7",  depart:"Guediawaye",          arrivee:"Place Obé",    arrets:18, couleur:"#3498db" },
-    { id:3,  numero:"15", depart:"Pikine",              arrivee:"Médina",       arrets:12, couleur:"#9b59b6" },
-    { id:4,  numero:"23", depart:"Ouakam",              arrivee:"Grand Dakar",  arrets:10, couleur:"#e67e22" },
-    { id:5,  numero:"8",  depart:"Almadies",            arrivee:"Colobane",     arrets:16, couleur:"#1abc9c" },
-    { id:6,  numero:"12", depart:"Yoff",                arrivee:"Sandaga",      arrets:11, couleur:"#f39c12" },
-    { id:7,  numero:"5",  depart:"Fann",                arrivee:"Liberté",      arrets:9,  couleur:"#e91e63" },
-    { id:8,  numero:"18", depart:"HLM",                 arrivee:"Dieuppeul",    arrets:13, couleur:"#00bcd4" },
-    { id:9,  numero:"30", depart:"Sicap",               arrivee:"Médina",       arrets:8,  couleur:"#8bc34a" },
-    { id:10, numero:"42", depart:"Liberté 6",           arrivee:"Plateau",      arrets:15, couleur:"#ff5722" },
-  ];
+  const [lignes, setLignes] = useState([]);
+  const [chargement, setChargement] = useState(true);
+  const [erreur, setErreur] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/lignes")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Erreur serveur : " + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setLignes(data);
+        setChargement(false);
+      })
+      .catch(error => {
+        setErreur(error.message);
+        setChargement(false);
+      });
+  }, []);
+
+  if (chargement) {
+    return (
+      <div className="App">
+        <Header />
+        <main className="contenu">
+          <p className="message-chargement">Chargement des lignes...</p>
+        </main>
+      </div>
+    );
+  }
+
+  if (erreur) {
+    return (
+      <div className="App">
+        <Header />
+        <main className="contenu">
+          <div className="message-erreur">
+            <p>Impossible de charger les lignes.</p>
+            <p className="erreur-detail">{erreur}</p>
+            <p>Vérifiez que le serveur Flask est lancé.</p>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
