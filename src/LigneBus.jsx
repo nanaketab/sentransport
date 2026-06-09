@@ -1,9 +1,12 @@
-
 import './LigneBus.css';
 
-function LigneBus({ numero, depart, arrivee, arrets, couleur, onClick }) {
+function LigneBus({ numero, depart, arrivee, arrets, couleur, estSelectionnee, onClick }) {
   return (
-    <div className="ligne-bus" onClick={onClick} style={{ cursor: 'pointer' }}>
+    <div
+      className={`ligne-bus ${estSelectionnee ? 'ligne-bus-active' : ''}`}
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
+    >
       <div className="ligne-numero" style={{ backgroundColor: couleur }}>
         {numero}
       </div>
