@@ -5,6 +5,7 @@ import Footer from './Footer';
 import LigneBus from './LigneBus';
 import Recherche from './Recherche';
 import DetailLigne from './DetailLigne';
+import Carte from './Carte';
 
 function App() {
   const [recherche, setRecherche] = useState("");
@@ -83,6 +84,7 @@ function App() {
           />
         ))}
         {ligneSelectionnee && <DetailLigne ligne={ligneSelectionnee} />}
+        <Carte />
       </main>
       <Footer />
     </div>
