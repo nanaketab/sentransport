@@ -8,6 +8,7 @@ import Recherche from './Recherche';
 import DetailLigne from './DetailLigne';
 import Carte from './Carte';
 import SignalerIncident from './SignalerIncident';
+import ListeIncidents from './ListeIncidents';
 
 function App() {
   const [recherche, setRecherche] = useState("");
@@ -89,6 +90,7 @@ function App() {
         {ligneSelectionnee && <DetailLigne ligne={ligneSelectionnee} />}
         <Carte />
         <SignalerIncident />
+        <ListeIncidents />
       </main>
       <Footer />
     </div>

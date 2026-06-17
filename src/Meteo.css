@@ -59,3 +59,33 @@
   font-family: monospace;
   font-size: 0.85rem;
 }
+.meteo-previsions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.meteo-prevision-jour {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.meteo-prevision-nom {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.meteo-prevision-icone {
+  width: 36px;
+  height: 36px;
+}
+
+.meteo-prevision-temp {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}

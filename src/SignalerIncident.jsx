@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './SignalerIncident.css';
 
 function SignalerIncident() {
+  const [lignesDisponibles, setLignesDisponibles] = useState([]);
   const [ligne, setLigne] = useState("");
   const [description, setDescription] = useState("");
   const [lieu, setLieu] = useState("");
   const [message, setMessage] = useState(null);
   const [enCours, setEnCours] = useState(false);
+
+  // Exercice 3 : charger les lignes disponibles pour le menu déroulant
+  useEffect(() => {
+    fetch("http://localhost:5000/lignes")
+      .then(r => r.json())
+      .then(data => setLignesDisponibles(data))
+      .catch(err => console.error("Erreur lignes :", err));
+  }, []);
 
   function handleSubmit() {
     if (!ligne || !description) {
@@ -58,13 +67,19 @@ function SignalerIncident() {
         Signaler un incident
       </h2>
       <div className="signaler-form">
-        <input
-          type="text"
-          placeholder="Numero de ligne (ex: 15)"
+        <select
           value={ligne}
           onChange={e => setLigne(e.target.value)}
           className="signaler-input"
-        />
+        >
+          <option value="">-- Choisir une ligne --</option>
+          {lignesDisponibles.map(l => (
+            <option key={l.id} value={l.numero}>
+              Ligne {l.numero} ({l.depart} → {l.arrivee})
+            </option>
+          ))}
+        </select>
+
         <input
           type="text"
           placeholder="Lieu (ex: Colobane)"
