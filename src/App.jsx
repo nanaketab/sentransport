@@ -1,3 +1,4 @@
+import Meteo from './Meteo';
 import { useState } from 'react';
 import './App.css';
 import Header from './Header';
@@ -6,6 +7,7 @@ import LigneBus from './LigneBus';
 import Recherche from './Recherche';
 import DetailLigne from './DetailLigne';
 import Carte from './Carte';
+import SignalerIncident from './SignalerIncident';
 
 function App() {
   const [recherche, setRecherche] = useState("");
@@ -59,6 +61,7 @@ function App() {
     <div className="App">
       <Header />
       <main className="contenu">
+        <Meteo />
         <Recherche
           valeur={recherche}
           onChange={(val) => { setRecherche(val); setNbRecherches(n => n + 1); }}
@@ -85,6 +88,7 @@ function App() {
         ))}
         {ligneSelectionnee && <DetailLigne ligne={ligneSelectionnee} />}
         <Carte />
+        <SignalerIncident />
       </main>
       <Footer />
     </div>
